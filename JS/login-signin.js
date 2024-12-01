@@ -23,7 +23,7 @@ function createAdmin() {
   localStorage.setItem("admin", JSON.stringify(userpeople));
 }
 var tmp = JSON.parse(localStorage.getItem("admin"));
-if (tmp == null) createAdmin();
+if (tmp == null || tmp == []) createAdmin();
 // console.log(userpeople.length);
 
 // document.getElementById("P").addEventListener("click", login);
