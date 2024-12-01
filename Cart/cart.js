@@ -971,7 +971,7 @@ function buy2() {
       totalPayment: totalPayment,
       customer: user,
       date: d,
-      status: "Chưa xử lý",
+      status: "Chưa xử lí",
       thanhToan: "Chưa thanh toán",
     };
     ///Nếu mà ô thanh toán chuyển khoản mà checked thì bill.thanhToan = đã thanh toán
@@ -987,7 +987,7 @@ function buy2() {
       totalPayment: totalPayment,
       customer: user,
       date: d,
-      status: "Chưa xử lý",
+      status: "Chưa xử lí",
       thanhToan: "Chưa thanh toán",
     };
     ///Nếu mà ô thanh toán chuyển khoản mà checked thì bill.thanhToan = đã thanh toán
@@ -1005,7 +1005,7 @@ function buy2() {
       listSP: chiTietSP_mua,
     },
     thanhToan: bill.thanhToan,
-    trangThai: "Chưa xử lý",
+    trangThai: "Chưa xử lí",
   };
 
   dsDH_tmp.push(dh_tmp);

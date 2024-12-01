@@ -287,6 +287,7 @@ function xuatDH() {
       `;
     let e = document.querySelector("#table2");
     e.innerHTML = s;
+    e.style.width = "90%";
   } else {
     perDH.forEach((i) => {
       //Tìm khách hàng theo maKH
