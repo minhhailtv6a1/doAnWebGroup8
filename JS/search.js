@@ -121,8 +121,10 @@ function search() {
                 </select>
               <a href="#">Hướng dẫn chọn kích cỡ</a>
               <div> 
-              <button type = "submit">Mua ngay</button>
-              <button type = "submit">Thêm vào giỏ hàng</button>
+                <button type = "submit">Mua ngay</button>
+                <button type = "submit" onclick="addToCart('${
+                  product.id
+                }')">Thêm vào giỏ hàng</button>
              </div>
             </footer>
           </div>
@@ -163,9 +165,11 @@ function search() {
                 </select>
       <a href="#">Hướng dẫn chọn kích cỡ</a>
       <div> 
-      <button type = "submit">Mua ngay</button>
-      <button type = "submit">Thêm vào giỏ hàng</button>
-     </div>
+        <button type = "submit">Mua ngay</button>
+        <button type = "submit" onclick="addToCart('${
+          product.id
+        }')">Thêm vào giỏ hàng</button>
+      </div>
     </footer>
   </div>
           </article>`);
