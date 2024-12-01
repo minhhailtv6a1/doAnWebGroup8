@@ -733,6 +733,7 @@ function cap_nhat_dh(num) {
   let dsBill = JSON.parse(localStorage.getItem("bill"));
   let bill = dsBill.find((tmp) => tmp.id === dh.maDH);
   bill.status = dh.trangThai;
+  bill.thanhToan = dh.thanhToan;
   localStorage.setItem("bill", JSON.stringify(dsBill));
 
   // console.log(anh.files);
