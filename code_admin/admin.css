@@ -4,6 +4,11 @@ body {
   box-sizing: border-box;
 }
 
+#thoat {
+  margin: 10px 20px 10px 10px;
+  padding: 5px;
+}
+
 #container {
   position: relative;
 }
@@ -262,7 +267,7 @@ body {
   /* height: 50%; */
   width: 50%;
   height: fit-content;
-  margin-top: 70px;
+  margin-top: 30px;
   margin-bottom: 20px;
   background-color: rgb(245, 244, 244);
 
@@ -271,6 +276,7 @@ body {
     width: 35%;
     border: solid 1px;
     margin: 10px;
+    max-height: 238px;
   }
   #save {
     /* margin-bottom: 20px; */
@@ -903,7 +909,7 @@ p {
     width: 300px;
     position: absolute;
     left: 15%;
-    top: 170%;
+    top: 155%;
     padding: 10px 30px;
   }
 }

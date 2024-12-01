@@ -10,7 +10,7 @@
   <body>
     <div id="container">
       <div id="header">
-        <div>Hai Tran</div>
+        <button type="button" id="thoat" onclick="exit()">Admin</button>
       </div>
       <div id="leftmenu">
         <div id="trangchu">
@@ -44,6 +44,7 @@
           <button class="content_menu" onclick="xuatDS_DT()">Doanh thu</button>
         </div>
       </div>
+      <img src="../img_admin/anhtrangchu.jpg" alt="trangChu" id="anhBiaAdmin" />
       <div id="Content1">
         <div
           style="
@@ -102,7 +103,11 @@
             <label for="đến ngày">To</label>
             <input type="date" name="" id="date2" />
             <br />
-            <button id="loc " style="margin-top: 10px" onclick="xuatDS_DT()">
+            <button
+              id="loc "
+              style="margin-top: 10px"
+              onclick="kt_date();xuatDS_DT()"
+            >
               lọc
             </button>
           </div>
@@ -125,5 +130,6 @@
     <script src="./admin_js/donHang.js"></script>
     <script src="./admin_js/khachHang.js"></script>
     <script src="./admin_js/doanhThu.js"></script>
+    <script src="../JS/login-signin.js"></script>
   </body>
 </html>

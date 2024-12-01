@@ -1,8 +1,14 @@
 let ds_dh1 = JSON.parse(localStorage.getItem("DS_DH"));
+if (JSON.parse(localStorage.getItem("DS_DH")) == null) ds_dh1 = [];
+
 let ds_kh2 = JSON.parse(localStorage.getItem("people"));
-let ds_dc2 = JSON.parse(localStorage.getItem("DS_DC"));
+if (JSON.parse(localStorage.getItem("people")) == null) ds_kh2 = [];
+
+let ds_dc2 = JSON.parse(localStorage.getItem("address"));
+if (JSON.parse(localStorage.getItem("address")) == null) ds_dc2 = [];
+
 const SanPham = JSON.parse(localStorage.getItem("product"));
-let ds_sp1 = SanPham;
+let ds_sp1 = JSON.parse(localStorage.getItem("product"));
 
 function kt_date() {
   let date1 = document.getElementById("date1");
@@ -23,6 +29,7 @@ function kt_date() {
 function xuatDS_DT() {
   //             các biến để lấy dữ liệu ngày  //
   ds_dh1 = JSON.parse(localStorage.getItem("DS_DH"));
+  if (JSON.parse(localStorage.getItem("DS_DH")) == null) ds_dh1 = [];
   let date1 = document.getElementById("date1");
   let date2 = document.getElementById("date2");
   // if (!date1.value || !date2.value) {
@@ -70,17 +77,18 @@ function xuatDS_DT() {
 
   for (let i = 0; i < ds_dh1.length; i++) {
     //  tạo mảng cắt chuỗi dữ liệu ngày từ đơn hàng //
-    console.log(ds_dh1);
-    console.log(ds_dh1[i].ngay);
-    let arr = ds_dh1[i].ngay.split("/");
-    // đổi kiểu chuỗi sang kiêu số //
-    let date = Number.parseInt(arr[0]);
-    let month = Number.parseInt(arr[1]);
-    let year = Number.parseInt(arr[2]);
-    let tmp = `${year}-${month.toString().padStart(2, "0")}-${date
-      .toString()
-      .padStart(2, "0")}`;
-    //  tạo đối tượng Date //
+    // console.log(ds_dh1[i].ngay);
+    if (ds_dh1[i].ngay && typeof ds_dh1[i].ngay === "string") {
+      let arr = ds_dh1[i].ngay.split("/");
+      // đổi kiểu chuỗi sang kiêu số //
+      let date = Number.parseInt(arr[0]);
+      let month = Number.parseInt(arr[1]);
+      let year = Number.parseInt(arr[2]);
+      var tmp = `${year}-${month.toString().padStart(2, "0")}-${date
+        .toString()
+        .padStart(2, "0")}`;
+      //  tạo đối tượng Date //
+    }
     let newdate = new Date(tmp);
     //  kiểm tra đơn hàng đã được giao và nằm trong khoảng thời gian thống kê //
     if (
@@ -102,6 +110,7 @@ function xuatDS_DT() {
       });
     }
   }
+
   localStorage.setItem("TKMH", JSON.stringify(tk_matHang)); // đưa mảng lên localstorage
   let tkmh = JSON.parse(localStorage.getItem("TKMH"));
   let h = document.getElementById("h1_dt");
@@ -188,6 +197,8 @@ function xuatDS_DT() {
   let tkkh = JSON.parse(localStorage.getItem("TKKH"));
   //   mảng để sắp xếp khách hàng có doanh thu cao  //////////
   ds_kh2 = JSON.parse(localStorage.getItem("people"));
+  if (JSON.parse(localStorage.getItem("people")) == null) ds_kh2 = [];
+
   let sxkh = [];
   let tongtienqa = 0;
   document.getElementById("h1_dt1").innerHTML = "Thống kê khách hàng";
@@ -226,7 +237,10 @@ function xuatDS_DT() {
   let s = `Top 5 khách hàng phát sinh doanh thu nhiều nhất:<br/> <br/> `;
   if (sxkh.length < 5) {
     sxkh.forEach((i) => {
-      if (i.tien > 0) s += `${i.ten}: ${i.tien} <br/> <br/>`;
+      if (i.tien > 0) {
+        let dd1 = formatCash(i.tien.toString()) + "đ";
+        s += `${i.ten}: ${dd1} <br/> <br/>`;
+      }
     });
   } else {
     for (let i = 0; i < 5; i++) {
@@ -242,6 +256,7 @@ function xuatDS_DT() {
   content2.style.display = "none";
   content3.style.display = "none";
   content4.style.display = "block";
+  document.getElementById("anhBiaAdmin").style.display = "none";
 }
 ///////////////////////////////////  cho phép xem hóa đơn   /////////////////////////////////
 function xemHoaDon(k) {

@@ -53,6 +53,7 @@ const DS_DC = [
   {
     soNha: "212",
     duong: "Nguyễn Thông",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận Phú Nhuận",
     tp_tinh: "TP HCM",
     maKH: "KH_001",
@@ -60,6 +61,7 @@ const DS_DC = [
   {
     soNha: "214",
     duong: "Nguyễn Biểu",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận Bình Thạnh",
     tp_tinh: "TP HCM",
     maKH: "KH_002",
@@ -67,6 +69,7 @@ const DS_DC = [
   {
     soNha: "345",
     duong: "Nguyễn Thị Minh Khai",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận 1",
     tp_tinh: "TP HCM",
     maKH: "KH_006",
@@ -74,6 +77,7 @@ const DS_DC = [
   {
     soNha: "213",
     duong: "Nguyễn Văn Cừ",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận Tân Bình",
     tp_tinh: "TP HCM",
     maKH: "KH_004",
@@ -81,6 +85,7 @@ const DS_DC = [
   {
     soNha: "112",
     duong: "Ngô Quyền",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận 7",
     tp_tinh: "TP HCM",
     maKH: "KH_005",
@@ -88,6 +93,7 @@ const DS_DC = [
   {
     soNha: "351",
     duong: "Nguyễn Trãi",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận 11",
     tp_tinh: "TP HCM",
     maKH: "KH_003",
@@ -95,6 +101,7 @@ const DS_DC = [
   {
     soNha: "342",
     duong: "An Dương Vương",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận 5",
     tp_tinh: "TP HCM",
     maKH: "KH_006",
@@ -102,18 +109,20 @@ const DS_DC = [
   {
     soNha: "201",
     duong: "Hưng Phú",
+    phuong_xa: "phường Cô Giang",
     quan_huyen: "Quận 8",
     tp_tinh: "TP HCM",
     maKH: "KH_003",
   },
 ];
-localStorage.setItem("DS_DC", JSON.stringify(DS_DC));
-let ds_dc1 = JSON.parse(localStorage.getItem("DS_DC"));
-localStorage.setItem("people", JSON.stringify(DS_KH));
+// localStorage.setItem("DS_DC", JSON.stringify(DS_DC));
+let ds_dc1 = JSON.parse(localStorage.getItem("address"));
+// localStorage.setItem("people", JSON.stringify(DS_KH));
 //const ds_KH = JSON.parse(localStorage.getItem("DS_KH"));
 // const ds_KH = JSON.parse(localStorage.getItem("people"));
 // const KH = JSON.parse(localStorage.getItem("people"));
 let ds_kh1 = JSON.parse(localStorage.getItem("people"));
+if (JSON.parse(localStorage.getItem("people")) == null) ds_kh1 = [];
 
 let currentPage3 = 1; //Thứ tự của trang
 let perPage3 = 5; //Số khách hàng trên trang
@@ -125,7 +134,7 @@ function xuatDS_KH() {
   handlePage3(1);
 }
 function renderPage3() {
-  // ds_kh1 = JSON.parse(localStorage.getItem("people"));
+  //ds_kh1 = JSON.parse(localStorage.getItem("people"));
   totalPage3 = Math.ceil(ds_kh1.length / perPage3);
   let page1 = document.querySelector("#pagination3");
   page1.innerHTML = "";
@@ -208,17 +217,22 @@ function xuatKH() {
   content2.style.display = "none";
   content3.style.display = "block";
   content4.style.display = "none";
+  document.getElementById("anhBiaAdmin").style.display = "none";
 
   timkiem_KH();
   form_them_kh();
 }
 function khoaNguoiDung(num) {
+  let dskh = JSON.parse(localStorage.getItem("people"));
   let kh = ds_kh1[num];
+  let index = dskh.findIndex((tmp) => tmp.ms_kh === kh.ms_kh);
   //let khoa = document.getElementById("khoa");
   if (kh) {
     kh.status = !kh.status;
   }
   xuatKH();
+  dskh[index] = kh;
+  localStorage.setItem("people", JSON.stringify(dskh));
 }
 function timkiem_KH() {
   let a = document.querySelector("#timkiemkh");
@@ -247,7 +261,6 @@ function tim() {
   ds_kh1 = JSON.parse(localStorage.getItem("people"));
   let a = document.querySelector("#input").value;
   let b = document.querySelector("#input1").value;
-  console.log(a + " " + b);
   if (a !== "") {
     ds_kh1 = ds_kh1.filter((value) => {
       return value.hvt.toUpperCase().includes(a.toUpperCase());
@@ -258,7 +271,6 @@ function tim() {
       return value.tdn.toUpperCase().includes(b.toUpperCase());
     });
   }
-
   xuatDS_KH();
 }
 
@@ -289,7 +301,7 @@ function form_them_kh() {
     <h2 align="center">Thêm Khách hàng</h2>
     <div id="ten_khach_hang">
       <label for="tenkh_them">Tên khách hàng</label> <br>
-      <input id="tenkh_them" name="tenkh_them"" type="text" placeholder="Nhập tên khách hàng">
+      <input id="tenkh_them" name="tenkh_them" type="text" placeholder="Nhập tên khách hàng">
     </div>
     <div id="ten_dang_nhap">
       <label for="ten_them">Tên đăng nhập</label> <br>
@@ -305,6 +317,7 @@ function form_them_kh() {
 
 function themKH() {
   let dskh = JSON.parse(localStorage.getItem("people"));
+  if (dskh == null) dskh = [];
   let tenKH = document.querySelector("#tenkh_them");
   let tenDN = document.querySelector("#ten_them");
   // let ngayDK = document.getElementById("ngay_dang_ki").value;
@@ -349,10 +362,7 @@ function themKH() {
     if (tmp.length === 0) break;
     len++;
   }
-  // console.log(tmp.length);
-  // while (1) {
-  //   if (ds_sp.id.indexOf(len) == -1) break;
-  // }
+
   idKH = `KH_${s}`;
   const d = new Date();
   const nam = d.getFullYear();

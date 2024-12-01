@@ -303,8 +303,8 @@ function showUser() {
   let s = `
     <div id='hello' style="display: flex; flex-direction: column; justify-content: center">
       <div id="a" style="font-size: 16px; text-align: center">${user.hvt}</div>
-      <button type="button" id="bye" onclick="logout()">Đăng xuất</button>
-      <button type="button" id="bye1" onclick="view()">Thông tin tài khoản</button>
+      <button type="button" id="bye" onclick="logout()" style="cursor: pointer">Đăng xuất</button>
+      <button type="button" id="bye1" onclick="view()" style="cursor: pointer">Thông tin tài khoản</button>
     </div>
   `;
   e.innerHTML = s;

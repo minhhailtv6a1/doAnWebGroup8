@@ -1,5 +1,5 @@
 var ds_kh = JSON.parse(localStorage.getItem("people"));
-var ds_dc = JSON.parse(localStorage.getItem("DS_DC"));
+var ds_dc = JSON.parse(localStorage.getItem("address"));
 const DS_DH = [
   {
     maDH: "DH_01",
@@ -170,9 +170,10 @@ const DS_DH = [
     trangThai: "Chưa xử lí",
   },
 ];
-localStorage.setItem("DS_DH", JSON.stringify(DS_DH));
+// localStorage.setItem("DS_DH", JSON.stringify(DS_DH));
 
 var ds_dh = JSON.parse(localStorage.getItem("DS_DH"));
+if (JSON.parse(localStorage.getItem("DS_DH")) == null) ds_dh = [];
 perDH = [];
 function xuatDS_DH() {
   renderPage2();
@@ -312,16 +313,21 @@ function xuatDH() {
       //Lấy địa chỉ của khách hàng
       let dc_tmp = ds_dc.find((dc) => dc.maKH === i.maKH);
       console.log(dc_tmp);
-      let sDiaChi =
-        dc_tmp.soNha +
-        " " +
-        dc_tmp.duong +
-        ", " +
-        dc_tmp.quan_huyen +
-        ", " +
-        dc_tmp.tp_tinh +
-        "\n";
-
+      let sDiaChi;
+      if (dc_tmp === null) sDiaChi = "";
+      else {
+        sDiaChi =
+          dc_tmp.soNha +
+          " " +
+          dc_tmp.duong +
+          ", " +
+          dc_tmp.phuong_xa +
+          ", " +
+          dc_tmp.quan_huyen +
+          ", " +
+          dc_tmp.tp_tinh +
+          "\n";
+      }
       //Đưa thông tin đơn hàng vào chuỗi s để innerHTML ra
       s += `<tr>
       <td align="center">${i.maDH}</td>
@@ -354,6 +360,7 @@ function xuatDH() {
   content2.style.display = "block";
   content3.style.display = "none";
   content4.style.display = "none";
+  document.getElementById("anhBiaAdmin").style.display = "none";
 
   form_tim_kiem_dh();
 }
@@ -367,6 +374,8 @@ function hienThiChiTietDH(maDH) {
     diaChi.soNha +
     " " +
     diaChi.duong +
+    ", " +
+    diaChi.phuong_xa +
     ", " +
     diaChi.quan_huyen +
     ", " +
@@ -625,6 +634,8 @@ function form_sua_dh(num) {
     ", " +
     realDiaChi.duong +
     ", " +
+    realDiaChi.phuong_xa +
+    ", " +
     realDiaChi.quan_huyen +
     ", " +
     realDiaChi.tp_tinh;
@@ -636,6 +647,50 @@ function dong_form_sua_dh() {
   let e = document.getElementById("fake_background2");
   e.style.display = "none";
 }
+
+// function cap_nhat_dh(num) {
+//   let dsDH = JSON.parse(localStorage.getItem("DS_DH"));
+//   let index = dsDH.findIndex((tmp) => tmp.maDH === ds_dh[num].maDH);
+//   let dh = ds_dh[num];
+//   // let tenKH = document.getElementById("ten_kh_sua_dh");
+//   let thanhToan = document.getElementById("thanhToan_dh_sua");
+//   let trangThai = document.getElementById("trangThai_dh_sua");
+//   let diaChi = document.getElementById("diaChi_sua_hd");
+//   let arr = diaChi.value.split(", ");
+
+//   console.log(diaChi.value);
+//   console.log(arr);
+//   let diaChi_DS = ds_dc.find((tmp) => tmp.maKH === dh.maKH);
+//   diaChi_DS.soNha = arr[0];
+//   diaChi_DS.duong = arr[1];
+//   diaChi_DS.phuong_xa = arr[2];
+//   diaChi_DS.quan_huyen = arr[3];
+//   diaChi_DS.tp_tinh = arr[4];
+//   localStorage.setItem("DS_DC", JSON.stringify(ds_dc));
+//   // console.log(tenKH.value);
+//   // console.log(ngay.value);
+//   // console.log(trangThai.value);
+
+//   // let tmp = new Date(ngay.value);
+//   // let day = tmp.getDate();
+//   // let month = tmp.getMonth() + 1;
+//   // let year = tmp.getFullYear();
+//   // let sNgay = `${day}/${month}/${year}`;
+//   // dh.ngay = sNgay;
+//   dh.trangThai = trangThai.value;
+//   dh.thanhToan = thanhToan.value;
+//   // dh.tenKH = tenKH.value;
+
+//   //Đưa ds mới cập nhật lên localStorage
+//   dsDH[index] = dh;
+//   localStorage.setItem("DS_DH", JSON.stringify(dsDH));
+//   // console.log(anh.files);
+//   dong_form_sua_dh();
+//   let k = num;
+//   if (k % perPage == 0) k += perPage / 10;
+//   handlePage2(Math.ceil(k / perPage));
+//   renderPage2();
+// }
 
 function cap_nhat_dh(num) {
   let dsDH = JSON.parse(localStorage.getItem("DS_DH"));
@@ -652,9 +707,10 @@ function cap_nhat_dh(num) {
   let diaChi_DS = ds_dc.find((tmp) => tmp.maKH === dh.maKH);
   diaChi_DS.soNha = arr[0];
   diaChi_DS.duong = arr[1];
-  diaChi_DS.quan_huyen = arr[2];
-  diaChi_DS.tp_tinh = arr[3];
-  localStorage.setItem("DS_DC", JSON.stringify(ds_dc));
+  diaChi_DS.phuong_xa = arr[2];
+  diaChi_DS.quan_huyen = arr[3];
+  diaChi_DS.tp_tinh = arr[4];
+  localStorage.setItem("address", JSON.stringify(ds_dc));
   // console.log(tenKH.value);
   // console.log(ngay.value);
   // console.log(trangThai.value);
@@ -672,6 +728,13 @@ function cap_nhat_dh(num) {
   //Đưa ds mới cập nhật lên localStorage
   dsDH[index] = dh;
   localStorage.setItem("DS_DH", JSON.stringify(dsDH));
+
+  //Lấy ds bill để cập nhật trạng thái
+  let dsBill = JSON.parse(localStorage.getItem("bill"));
+  let bill = dsBill.find((tmp) => tmp.id === dh.maDH);
+  bill.status = dh.trangThai;
+  localStorage.setItem("bill", JSON.stringify(dsBill));
+
   // console.log(anh.files);
   dong_form_sua_dh();
   let k = num;
@@ -679,7 +742,6 @@ function cap_nhat_dh(num) {
   handlePage2(Math.ceil(k / perPage));
   renderPage2();
 }
-
 //////////////////////////////////////////////////////////Sắp xếp theo quận//////////////////////////////////////////////
 function sapXepDH() {
   for (let i = 0; i < ds_dh.length - 1; i++) {

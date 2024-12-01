@@ -486,11 +486,14 @@ function gohome() {
   content2.style.display = "none";
   content3.style.display = "none";
   content4.style.display = "none";
+  
+  document.getElementById("anhBiaAdmin").style.display = "block";
 }
+gohome();
 
-window.onload = function (e) {
-  gohome();
-};
+// window.onload = function (e) {
+//   gohome();
+// };
 ////////////////////////////////////////////CODE ĐỂ PHÂN TRANG/////////////////////////////////////////////////////////
 
 //Các biến để phân trang
@@ -590,6 +593,7 @@ function xuatSP() {
   content2.style.display = "none";
   content3.style.display = "none";
   content4.style.display = "none";
+  document.getElementById("anhBiaAdmin").style.display = "none";
 
   form_tim_kiem_sp();
   form_them_sp();

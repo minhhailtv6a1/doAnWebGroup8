@@ -899,6 +899,17 @@ function buy1() {
   document.querySelector(".cart-container").style.display = "none";
   document.querySelector(".form-container").style.display = "block";
   updateSize();
+
+  ///Hiển Thị địa chỉ cũ của khách hàng
+  let addressArray = JSON.parse(localStorage.getItem("address"));
+  if (addressArray == null) return;
+
+  let addressUser = addressArray.find((tmp) => tmp.maKH === user.ms_kh);
+  document.getElementById("houseNumber").value = addressUser.soNha;
+  document.getElementById("street").value = addressUser.duong;
+  document.getElementById("ward").value = addressUser.phuong_xa;
+  document.getElementById("district").value = addressUser.quan_huyen;
+  document.getElementById("city").value = addressUser.tp_tinh;
 }
 function buy2() {
   // if (localStorage.getItem("people") === null) {
@@ -1434,7 +1445,7 @@ function addDiaChi() {
     tp_tinh: city,
     maKH: user.ms_kh,
   };
-  addressArray.push(address);
+  addressArray.unshift(address);
   localStorage.setItem("address", JSON.stringify(addressArray));
 }
 
