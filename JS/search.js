@@ -1,3 +1,45 @@
+function addToCart(productId) {
+  console.log(productId);
+  var size = document.querySelector("#sizeSP").value;
+  console.log(size);
+  // var quantity = document.getElementById("quantity").value;
+  var quantity = 1;
+  var productArray = JSON.parse(localStorage.getItem("product"));
+  var productTemp;
+  for (var i = 0; i < productArray.length; i++) {
+    if (productArray[i].id == productId) {
+      productTemp = productArray[i];
+    }
+  }
+  if (localStorage.getItem("cart") === null) {
+    var cartArray = [];
+    //productTemp.size = size;
+    productTemp.quantity = quantity;
+    productTemp.totalPrice = productTemp.quantity * productTemp.gia;
+    productTemp.size = size;
+    cartArray.unshift(productTemp);
+    localStorage.setItem("cart", JSON.stringify(cartArray));
+  } else {
+    var cartArray = JSON.parse(localStorage.getItem("cart"));
+    var check = false;
+    for (var i = 0; i < cartArray.length; i++) {
+      if (cartArray[i].id == productTemp.id) {
+        cartArray[i].quantity += quantity;
+        cartArray[i].totalPrice = cartArray[i].gia * cartArray[i].quantity;
+        check = true;
+      }
+    }
+    if (!check) {
+      productTemp.quantity = quantity;
+      productTemp.size = size;
+      productTemp.totalPrice = quantity * productTemp.gia;
+      cartArray.unshift(productTemp);
+    }
+    localStorage.setItem("cart", JSON.stringify(cartArray));
+  }
+  //closeProductInfo();
+}
+
 /*SEARCH*/
 const productSearch = {
   products: [],
